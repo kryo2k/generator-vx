@@ -65,7 +65,6 @@ gulp.task('inject-app-html', function () {
       ignorePath: '/build/',
       addRootSlash: false
     }))
-    .pipe(angularFilesort())
     .pipe(gulp.dest(pathBuild));
 });
 
@@ -119,6 +118,7 @@ gulp.task('build-core', ['replace-constants'], function() {
       '!' + path.join(pathSrc, 'app-constants.js'),
       path.join('.tmp', '**/*.js')
     ])
+    .pipe(angularFilesort())
     .pipe(concat(fileCore))
     .pipe(ngAnnotate())
     .pipe(uglify())
