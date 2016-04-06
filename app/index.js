@@ -26,6 +26,12 @@ VXGenerator = yeoman.Base.extend({
     DEFAULT_FROM = this.appname + ' <no-reply@'+this.appname+'>',
     DEFAULT_NS = this.appname;
 
+    this.option('skip-install', {
+      desc: 'Do not install dependencies',
+      type: Boolean,
+      defaults: false
+    });
+
     this.option('private', {
       desc: 'Make this project private',
       type: Boolean,
