@@ -18,6 +18,7 @@ function newPrivateKey() {
 
 var
 DEFAULT_FROM = 'Site <site@site.com>',
+DEFAULT_NS = 'vx',
 VXGenerator = yeoman.Base.extend({
   constructor: function () {
     yeoman.Base.apply(this, arguments);
@@ -85,13 +86,13 @@ VXGenerator = yeoman.Base.extend({
     this.option('angular-module', {
       desc: 'Base angular module name',
       type: String,
-      defaults: 'vx'
+      defaults: DEFAULT_NS
     });
 
     this.option('wamp-namespace', {
       desc: 'Base wamp namespace name',
       type: String,
-      defaults: 'vx'
+      defaults: this.options['angular-module'] || DEFAULT_NS
     });
 
     this.option('session-duration-short', {
