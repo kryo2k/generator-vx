@@ -17,6 +17,7 @@ function newPrivateKey() {
 }
 
 var
+platform = os.platform(),
 VXGenerator = yeoman.Base.extend({
   constructor: function () {
     yeoman.Base.apply(this, arguments);
@@ -178,8 +179,8 @@ VXGenerator = yeoman.Base.extend({
 
   initializing: function () {
     this.pkg = require('../package.json');
-    this.isLinuxLike = (os.platform() !== 'win32');
-    this.isWindows   = (os.platform() === 'win32');
+    this.isLinuxLike = (platform !== 'win32');
+    this.isWindows   = (platform === 'win32');
     this.privateKey  = newPrivateKey();
     this.mainLauncher = this.isWindows ? 'start-app.cmd' : 'start-app.sh';
   },
