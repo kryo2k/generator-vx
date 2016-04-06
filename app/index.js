@@ -17,11 +17,13 @@ function newPrivateKey() {
 }
 
 var
-DEFAULT_FROM = 'Site <site@site.com>',
-DEFAULT_NS = 'vx',
 VXGenerator = yeoman.Base.extend({
   constructor: function () {
     yeoman.Base.apply(this, arguments);
+
+    var
+    DEFAULT_FROM = this.appname + ' <no-reply@'+this.appname+'>',
+    DEFAULT_NS = this.appname;
 
     this.option('private', {
       desc: 'Make this project private',
@@ -355,12 +357,14 @@ VXGenerator = yeoman.Base.extend({
     // template over the main launcher
     this.template(this.mainLauncher);
 
-    // prevent these from leaking into git
-    this.privateKey = '-- secret --';
-    this.props.awsKey = '-- secret --';
-    this.props.awsSecret = '-- secret --';
-    this.props.recaptchaKey = '-- secret --';
-    this.props.recaptchaSecret = '-- secret --';
+    var // prevent these from leaking into git
+    hideSecret = '-- secret --';
+
+    this.privateKey            = hideSecret;
+    this.props.awsKey          = hideSecret;
+    this.props.awsSecret       = hideSecret;
+    this.props.recaptchaKey    = hideSecret;
+    this.props.recaptchaSecret = hideSecret;
 
     // these can be checked in to git as defaults
     this.template('start-app.cmd', 'start-app.cmd.suggested');
