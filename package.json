@@ -2,7 +2,7 @@
   "name": "generator-vx",
   "version": "0.1.0",
   "description": "Advanced boiler plate including Crossbar, Angular 1.5x, NodeJS and MongoDB",
-  "repository": "yeoman/generator-vx",
+  "repository": "kryo2k/generator-vx",
   "license": "GPL-3.0",
   "files": [
     "app"
