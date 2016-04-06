@@ -1,0 +1,9 @@
+Description:
+    Creates a basic VX based application
+
+Example:
+    yo vx
+
+    This will create:
+        README.md: Description and minimal user instructions
+        package.json: Development packages installed by npm

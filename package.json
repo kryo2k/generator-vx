@@ -1,0 +1,16 @@
+{
+  "name": "generator-vx",
+  "version": "0.1.0",
+  "description": "Advanced boiler plate including Crossbar, Angular 1.5x, NodeJS and MongoDB",
+  "repository": "yeoman/generator-vx",
+  "license": "GPL-3.0",
+  "files": [
+    "app"
+  ],
+  "keywords": ["yeoman-generator"],
+  "dependencies": {
+    "yeoman-generator": "latest",
+    "yosay": "latest",
+    "chalk": "latest"
+  }
+}

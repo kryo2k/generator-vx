@@ -1,0 +1,58 @@
+<hr />
+
+<p class="text-muted text-center" ng-if="!$msgConversations.length && !$msgConversations.lastQueryData">Loading, please wait..</p>
+<p class="text-muted text-center" ng-if="!$msgConversations.length && $msgConversations.lastQueryData">You have no conversations.</p>
+
+<div class="list-group" ng-if="$msgConversations.length > 0">
+  <div class="list-group-item" ng-repeat="conv in $msgConversations.conversations" ng-class="{'list-group-item-warning': conv.unread > 0}">
+    <span ng-if="conv.unread > 0" class="badge">{{conv.unread|number}}</span>
+    <h4 class="list-group-item-heading">
+
+
+      <a ng-if="!$msgConversations.isFocused(conv)" ui-sref="app.user.messages.conversations({ senderId: conv.from._id })" ng-bind="conv.from.name"></a>
+      <a ng-if="$msgConversations.isFocused(conv)" ui-sref="app.user.messages.conversations({ senderId: null, messageId: null })" ng-bind="conv.from.name"></a>
+
+      <small ng-if="$msgConversations.isFocused(conv)"> &amp; {{$msgConversations.conversationSelf.name}}</small>
+    </h4>
+
+
+    <div class="list-group-item-text small" ng-if="!$msgConversations.isFocused(conv)">
+      <span><b>Total:</b>&nbsp;{{conv.total|number}}</span>
+      <span class="inline-separator">|</span>
+      <span>{{conv.first|date:'short'}} <b>to</b> {{conv.last|date:'short'}}</span>
+    </div>
+
+    <div class="list-group-item-text conversation" ng-if="$msgConversations.isFocused(conv)">
+      <div class="conversation-message" ng-repeat="msg in $msgConversations.conversationRecords" ng-class="{'message-unread': msg.unread}">
+        <div> <!--  ng-class="{'pull-left text-left': msg.isReceiver, 'pull-right text-right': msg.isSender }" -->
+          <span class="message-date small pull-right" ng-bind="msg.created|date:'short'"></span>
+          <span class="message-author">
+            <span ng-if="msg.isSender" ng-bind="$msgConversations.conversationSelf.name"></span>
+            <span ng-if="msg.isReceiver" ng-bind="$msgConversations.conversationPartner.name"></span>
+          </span>
+          <div class="message-body" ng-bind="$msgConversations.read(msg._id)"></div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+
+    <div ng-if="$msgConversations.conversation.canLoadMore">
+      <hr />
+
+      <button class="btn btn-default" ng-click="$msgConversations.conversation.loadMore()">Load more</button>
+    </div>
+  </div>
+</div>
+
+<!-- <pre>
+conversation: {{$msgConversations.conversation|json}}
+  .length: {{$msgConversations.conversation.length|number}}
+  .totalPages: {{$msgConversations.conversation.totalPages|number}}
+  .totalRecords: {{$msgConversations.conversation.totalRecords|number}}
+  .records: {{$msgConversations.conversation.Xrecords|json}}
+  .lastParams: {{$msgConversations.conversation.XlastParams|json}}
+  .lastData: {{$msgConversations.conversation.XlastData|json}}
+</pre> -->
+
+<!-- <pre ng-bind="$msgConversations.conversations|json"></pre> -->
+<!-- <pre ng-bind="$msgConversations.message|json"></pre> -->

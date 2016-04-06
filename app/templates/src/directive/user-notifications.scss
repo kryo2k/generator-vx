@@ -1,0 +1,35 @@
+.user-notifications {
+  .notifcation-button {
+    position: relative;
+  }
+  .notification-count {
+    line-height: 1em;
+    font-size: 8px;
+    font-family: 'Montserrat';
+    background-color: red;
+    color: white;
+    padding: 2px;
+    border-radius: 3px;
+  }
+  .notifcation-button {
+    position: relative;
+
+    .notification-count {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+  }
+  .notifcation-menu-dropdown {
+    width: 320px;
+    max-height: 300px;
+    overflow: auto;
+    padding: 5px;
+  }
+  .list-group {
+    margin: 0;
+  }
+  .list-group-item.notification {
+    padding: 5px 8px;
+  }
+}

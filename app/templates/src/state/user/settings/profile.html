@@ -1,0 +1,75 @@
+<hr />
+<form class="form" name="form" ng-submit="$profile.submit($event, form)" form-reset="$profile.reset($event, $form)">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" form-input="form.name">
+        <label class="control-label">Name</label>
+        <input class="form-control" name="name" type="text" placeholder="Joe Smith" ng-model="$profile.model.name" validation-input required>
+        <validation-feedback></validation-feedback>
+        <validation-error></validation-error>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" form-input="form.email">
+        <label class="control-label">E-mail address</label>
+        <p>{{$profile.model.email}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group has-feedback" form-input="form.bio">
+        <label class="control-label">Bio</label>
+        <textarea name="bio" class="form-control" rows="3" ng-model="$profile.model.bio" placeholder="Something creative about yourself."></textarea>
+        <validation-feedback></validation-feedback>
+        <validation-error></validation-error>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group has-feedback" form-input="form.phoneHome">
+        <label class="control-label">Phone (home)</label>
+        <input class="form-control" name="phoneHome" type="text" placeholder="000-000-0000" ng-model="$profile.model.phone.home" validation-input>
+        <validation-feedback></validation-feedback>
+        <validation-error></validation-error>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group has-feedback" form-input="form.phoneMobile">
+        <label class="control-label">Phone (mobile)</label>
+        <input class="form-control" name="phoneMobile" type="text" placeholder="000-000-0000" ng-model="$profile.model.phone.mobile" validation-input>
+        <validation-feedback></validation-feedback>
+        <validation-error></validation-error>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group has-feedback" form-input="form.phoneWork">
+        <label class="control-label">Phone (work)</label>
+        <input class="form-control" name="phoneWork" type="text" placeholder="000-000-0000" ng-model="$profile.model.phone.work" validation-input>
+        <validation-feedback></validation-feedback>
+        <validation-error></validation-error>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-8">
+      <label>Public Key:</label><br />
+      <pre class="wrap">{{$profile.model.publicKey}}</pre>
+    </div>
+    <div class="col-sm-4">
+      <label>Created On:</label><br />
+      <p class="small text-muted">{{$profile.model.created|date:'short'}}</p>
+    </div>
+  </div>
+
+  <dl class="text-right">
+    <div class="btn-group">
+      <button type="submit" class="btn btn-lg btn-primary" ng-disabled="form.$invalid">Update Profile</button>
+      <button type="reset" class="btn btn-lg btn-default" ng-disabled="!form.$dirty">Reset</button>
+    </div>
+  </dl>
+</form>

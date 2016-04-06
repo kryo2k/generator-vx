@@ -1,0 +1,84 @@
+{
+  "name": "<%= props.name %>",
+  "private": <%= props.private %>,
+  "version": "<%= props.version %>",
+  "authors": [
+    "<%= options.author %>"
+  ],
+  "license": "<%= options.license %>",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular": "1.5.0",
+    "angular-sanitize": "1.5.0",
+    "angular-resource": "1.5.0",
+    "angular-cookies": "1.5.0",
+    "angular-ui-router": "0.2.18",
+    "angular-bootstrap": "~1.2.4",
+    "bootstrap": "3.3.6",
+    "angular-date": "*",
+    "autobahn": "~0.9.9",
+    "angular-wamp": "~0.1.8",
+    "angular-inview": "^1.5.7",
+    "angular-recaptcha": "^3.0.0"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": "dist/css/bootstrap.min.css"
+    },
+    "angular": {
+      "main": "angular.min.js"
+    },
+    "autobahn": {
+      "main": "autobahn.min.js"
+    },
+    "angular-bootstrap": {
+      "main": [
+        "ui-bootstrap-csp.css",
+        "ui-bootstrap.min.js",
+        "ui-bootstrap-tpls.min.js"
+      ]
+    },
+    "angular-cookies": {
+      "main": [
+        "angular-cookies.min.js"
+      ]
+    },
+    "angular-resource": {
+      "main": [
+        "angular-resource.min.js"
+      ]
+    },
+    "angular-sanitize": {
+      "main": [
+        "angular-sanitize.min.js"
+      ]
+    },
+    "angular-ui-router": {
+      "main": [
+        "release/angular-ui-router.min.js"
+      ]
+    },
+    "angular-wamp": {
+      "main": [
+        "release/angular-wamp.min.js"
+      ]
+    },
+    "angular-date": {
+      "main": [
+        "angular-date.min.js"
+      ]
+    },
+    "angular-recaptcha": {
+      "main": [
+        "release/angular-recaptcha.min.js"
+      ]
+    },
+    "jquery": {
+      "ignore": true
+    }
+  }
+}
