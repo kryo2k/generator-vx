@@ -21,7 +21,6 @@ embedlr = require("gulp-embedlr"),
 config = require('./config');
 
 var
-watching = false,
 liveReloadPort = process.env.LIVERELOAD_PORT || 33733,
 pathRoot  = __dirname,
 pathSrc   = path.join(pathRoot, 'src'),
@@ -50,8 +49,7 @@ gulp.task('inject-app-scss', function () {
 });
 
 gulp.task('inject-app-html', function () {
-  var
-  p = gulp.src(path.join(pathSrc, 'index.html'))
+  return gulp.src(path.join(pathSrc, 'index.html'))
   .pipe(inject(gulp.src(bowerFiles(), { read: false, base: 'bower_components' }), {
     name: 'bower',
     addRootSlash: false
@@ -61,21 +59,19 @@ gulp.task('inject-app-html', function () {
     path.join(pathBuild, fileTpl.replace('.js','.min.js')),
     path.join(pathBuild, 'app.min.css')
   ], {
-    cwd: pathBuild
+    cwd: pathBuild,
+    read: false
   }), {
     ignorePath: '/build/',
     addRootSlash: false
-  }));
+  }))
+  .pipe(gulp.dest(pathBuild));
+});
 
-  if (watching) {
-    p = p.pipe(embedlr({ port: liveReloadPort }));
-  }
-
-  return p
-  .pipe(gulp.dest(pathBuild))
-  .pipe(livereload({
-    reloadPath: path.join(pathBuild, 'index.html')
-  }));
+gulp.task('embed-live-reload', ['inject-app-html'], function () {
+  return gulp.src(path.join(pathBuild, 'index.html'))
+    .pipe(embedlr({ port: liveReloadPort }))
+    .pipe(gulp.dest(pathBuild));
 });
 
 gulp.task('replace-constants', function () {
@@ -102,7 +98,7 @@ gulp.task('build-sass', ['inject-app-scss'], function() {
     .pipe(minifyCss({ keepSpecialComments: 0 }))
     .pipe(rename({ extname: '.min.css' }))
     .pipe(gulp.dest(pathBuild))
-    .pipe(livereload({ reloadPath: path.join(pathBuild, 'app.min.css') }));
+    .pipe(livereload());
 });
 
 gulp.task('build-templates', function() {
@@ -121,7 +117,8 @@ gulp.task('build-templates', function() {
     .pipe(concat(fileTpl))
     .pipe(uglify())
     .pipe(rename({ extname: '.min.js' }))
-    .pipe(gulp.dest(pathBuild));
+    .pipe(gulp.dest(pathBuild))
+    .pipe(livereload());
 });
 
 gulp.task('build-core', ['replace-constants'], function() {
@@ -135,15 +132,15 @@ gulp.task('build-core', ['replace-constants'], function() {
     .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe(rename({ extname: '.min.js' }))
-    .pipe(gulp.dest(pathBuild));
+    .pipe(gulp.dest(pathBuild))
+    .pipe(livereload());
 });
 
-gulp.task('watch', function() {
-  watching = true;
+gulp.task('watch', ['build', 'embed-live-reload'], function() {
   livereload.listen({ host: 'localhost', port: liveReloadPort });
-  gulp.watch(path.join(pathSrc, '**/*.scss'), ['build-sass',      'inject-app-html']);
-  gulp.watch(path.join(pathSrc, '**/*.html'), ['build-templates', 'inject-app-html']);
-  gulp.watch(path.join(pathSrc, '**/*.js'),   ['build-core',      'inject-app-html']);
+  gulp.watch(path.join(pathSrc, '**/*.scss'), ['build-sass'     , 'embed-live-reload']);
+  gulp.watch(path.join(pathSrc, '**/*.html'), ['build-templates', 'embed-live-reload']);
+  gulp.watch(path.join(pathSrc, '**/*.js'),   ['build-core'     , 'embed-live-reload']);
 });
 
 gulp.task('build', [
@@ -154,6 +151,5 @@ gulp.task('build', [
 ]);
 
 gulp.task('default', [
-  'build',
   'watch'
 ]);
